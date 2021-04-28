@@ -1,0 +1,9 @@
+.card__image {
+  width: 100%;
+  height: calc(100% - 80px);
+  object-fit: cover;
+  object-position: center;
+  border-radius: 10px 10px 0 0;
+  position: relative;
+  cursor: pointer;
+}
