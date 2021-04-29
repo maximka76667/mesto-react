@@ -1,23 +1,41 @@
-import avatar from '../images/profile-avatar.jpg'
+import React from 'react'
+import api from '../utils/api'
 
-export default function Main() {
+export default function Main(props) {
+
+  const [userName, setUserName] = React.useState('');
+  const [userDescription, setUserDescription] = React.useState('');
+  const [userAvatar, setUserAvatar] = React.useState('');
+
+  React.useEffect(() => {
+    api.getProfileInfo()
+    .then((data) => {
+      setUserName(data.name);
+      setUserDescription(data.about);
+      setUserAvatar(data.avatar);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  })
+
   return (
     <main className="content">
       <div className="profile">
         <div className="profile__container">
-          <div className="profile__avatar">
+          <div className="profile__avatar" onClick={props.onEditAvatar}>
             <img
-              src={avatar}
+              src={userAvatar}
               className="profile__avatar-image"
               alt="Аватар профиля"
             />
           </div>
           <div className="profile__info">
-            <h1 className="profile__name">Жак-Ив Кусто</h1>
-            <button className="profile__edit-button" type="button"></button>
-            <p className="profile__position">Исследователь океана</p>
+            <h1 className="profile__name">{userName}</h1>
+            <button className="profile__edit-button" type="button" onClick={props.onEditProfile}></button>
+            <p className="profile__description">{userDescription}</p>
           </div>
-          <button className="profile__add-button" type="button"></button>
+          <button className="profile__add-button" type="button" onClick={props.onAddPlace}></button>
         </div>
       </div>
       <div className="cards">
