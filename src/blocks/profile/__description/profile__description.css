@@ -1,4 +1,4 @@
-.profile__position {
+.profile__description {
   font-size: 18px;
   line-height: 1.2222222222;
   grid-area: pos;
@@ -9,7 +9,7 @@
 }
 
 @media (max-width: 500px) {
-  .profile__position {
+  .profile__description {
     font-size: 14px;
     line-height: 1.214;
   }
