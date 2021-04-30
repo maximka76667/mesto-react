@@ -16,7 +16,8 @@ class Api {
       headers: {
         authorization: this._token,
       },
-    }).then(this._checkResponse);
+    })
+    .then(this._checkResponse)
   }
 
   setProfileInfo(data) {
