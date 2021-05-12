@@ -41,14 +41,14 @@ function App() {
   }
 
   function handleUpdateUser(data) {
-    api.setProfileInfo(data).then(() => {
-      setCurrentUser(data);
+    api.setProfileInfo(data).then((res) => {
+      setCurrentUser(res);
     })
   }
 
   function handleUpdateAvatar({avatar}) {
-    api.changeAvatar(avatar).then((data) => {
-      setCurrentUser(data);
+    api.changeAvatar(avatar).then((res) => {
+      setCurrentUser(res);
     })
   }
 
