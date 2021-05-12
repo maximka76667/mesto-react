@@ -1,6 +1,5 @@
 import React from 'react'
 import PopupWithForm from './PopupWithForm'
-import CurrentUserContext from '../contexts/CurrentUserContext'
 
 export default function EditAvatarPopup(props) {
 
@@ -19,7 +18,7 @@ export default function EditAvatarPopup(props) {
   }
 
   return (
-    <PopupWithForm name="avatar" title="Обновить аватар" isOpen={props.isOpen} onClose={props.onClose} onSubmit={handleUpdateAvatar} submitText="Сохранить">
+    <PopupWithForm name="avatar" title="Обновить аватар" isOpen={props.isOpen} isLoading={props.isLoading} onClose={props.onClose} onSubmit={handleUpdateAvatar} submitText="Сохранить">
       <input
         className="popup__input popup__input_type_link"
         type="url"

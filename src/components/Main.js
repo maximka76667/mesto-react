@@ -1,9 +1,8 @@
 import React from 'react'
-import api from '../utils/api'
 import Card from './Card'
 import CurrentUserContext from '../contexts/CurrentUserContext'
 
-export default React.memo(function Main(props) {
+export default function Main(props) {
 
   const currentUser = React.useContext(CurrentUserContext);
   const cards = props.cards;
@@ -38,4 +37,4 @@ export default React.memo(function Main(props) {
       </div>
     </main>
   )
-})
+}

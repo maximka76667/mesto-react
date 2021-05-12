@@ -13,12 +13,20 @@ import AddPlacePopup from './AddPlacePopup';
 function App() {
 
   const [currentUser, setCurrentUser] = React.useState({});
+
+  // isOpen
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(null)
+
+  // isLoading
+  const [isEditProfilePopupLoading, setIsEditProfilePopupLoading] = React.useState(false);
+  const [isAddPlacePopupLoading, setIsAddPlacePopupLoading] = React.useState(false);
+  const [isEditAvatarPopupLoading, setIsEditAvatarPopupLoading] = React.useState(false);
 
   const [cards, setCards] = React.useState([]);
+
+  const [selectedCard, setSelectedCard] = React.useState(null);
 
   React.useEffect(() => {
     api.getInitialCards()
@@ -45,7 +53,7 @@ function App() {
 
 
   function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(true)
+    setIsEditProfilePopupOpen(true);
   }
 
   function handleAddPlaceClick() {
@@ -68,31 +76,34 @@ function App() {
   }
 
   function handleUpdateUser(data) {
+    setIsEditProfilePopupLoading(true);
     api.setProfileInfo(data).then((res) => {
       setCurrentUser(res);
+    }).then(() => {
+      setIsEditProfilePopupLoading(false);
     })
   }
 
   function handleUpdateAvatar({avatar}) {
+    setIsEditAvatarPopupLoading(true);
     api.changeAvatar(avatar).then((res) => {
       setCurrentUser(res);
     })
+    .then(() => {
+      setIsEditAvatarPopupLoading(false);
+    })
   }
 
-  function handleAddPlaceSubmit(e) {
-    e.preventDefault();
-
+  function handleAddPlace(data) {
+    setIsAddPlacePopupLoading(true);
     api.addPlace({
-      name: e.target.placeName.value,
-      link: e.target.placeLink.value
+      name: data.name,
+      link: data.link
     }).then((newCard) => {
       setCards([newCard, ...cards]);
+    }).then(() => {
+      setIsAddPlacePopupLoading(false);
     })
-
-    closeAllPopups();
-
-    e.target.placeName.value = '';
-    e.target.placeLink.value = '';
   }
 
   React.useEffect(() => {
@@ -110,10 +121,10 @@ function App() {
           <Header />
           <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} cards={cards} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />
           <Footer />
-          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
-          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} />
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} isLoading={isEditProfilePopupLoading} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+          <AddPlacePopup isOpen={isAddPlacePopupOpen} isLoading={isAddPlacePopupLoading} onClose={closeAllPopups} onAddPlace={handleAddPlace} />
           <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
+          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} isLoading={isEditAvatarPopupLoading} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
           <PopupWithForm name="remove" title="Вы уверены?" onClose={closeAllPopups} submitText="Да" />
         </div>
       </div>

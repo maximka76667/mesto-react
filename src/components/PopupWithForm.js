@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function PopupWithForm(props) {
   const isOpen = props.isOpen;
+  const isLoading = props.isLoading;
 
   return (
     <div className={`popup popup_type_${props.name} ${isOpen ? 'popup_opened' : ''}`}>
@@ -10,7 +11,7 @@ export default function PopupWithForm(props) {
           <h2 className="popup__title">{props.title}</h2>
           <form className="popup__form" name={props.name} onSubmit={props.onSubmit} noValidate>
             {props.children}
-            <button className="popup__submit-button" type="submit">{props.submitText}</button>
+            <button className="popup__submit-button" type="submit">{ isLoading ? 'Загрузка...' : props.submitText}</button>
           </form>
           <button className="popup__close-button" type="button" onClick={props.onClose}></button>
         </div>
