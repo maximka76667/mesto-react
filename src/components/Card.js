@@ -25,10 +25,14 @@ export default function Card(props) {
     props.onCardLike(card);
   }
 
+  function handleCardDelete() {
+    props.onCardDelete(card);
+  }
+
   return (
     <article className="card">
       <img src={card.link} alt={card.name} className="card__image" onClick={handleClick} />
-      <button className={cardDeleteButtonClassName}></button>
+      <button className={cardDeleteButtonClassName} onClick={handleCardDelete}></button>
       <div className="card__info">
         <h2 className="card__title">{card.name}</h2>
         <div className="card__like">
