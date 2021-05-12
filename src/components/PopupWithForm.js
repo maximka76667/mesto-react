@@ -8,7 +8,7 @@ export default function PopupWithForm(props) {
       <div className="popup__overlay popup__overlay_type_remove"></div>
         <div className="popup__container popup__container_type_remove">
           <h2 className="popup__title">{props.title}</h2>
-          <form className="popup__form" name={props.name} noValidate>
+          <form className="popup__form" name={props.name} onSubmit={props.onSubmit} noValidate>
             {props.children}
             <button className="popup__submit-button" type="submit">{props.submitText}</button>
           </form>

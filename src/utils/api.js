@@ -28,8 +28,8 @@ class Api {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: data.profileName,
-        about: data.profilePosition,
+        name: data.name,
+        about: data.about,
       }),
     }).then(this._checkResponse);
   }
