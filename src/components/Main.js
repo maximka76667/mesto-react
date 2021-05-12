@@ -6,30 +6,7 @@ import CurrentUserContext from '../contexts/CurrentUserContext'
 export default React.memo(function Main(props) {
 
   const currentUser = React.useContext(CurrentUserContext);
-
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    api.getInitialCards()
-    .then((result) => {
-      setCards(result)
-    })
-    .catch((err) => console.log(err))
-  }, [])
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-    
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-    });
-  }
-
-  function handleCardDelete(card) {
-    api.removeCard(card._id).then(() => {
-      setCards(cards.filter((newCard) => newCard._id !== card._id))
-    });
-  }
+  const cards = props.cards;
 
   return (
     <main className="content">
@@ -54,7 +31,7 @@ export default React.memo(function Main(props) {
         <div className="cards__container">
           {
             cards.map((card) => {
-              return <Card key={card._id} card={card} onClick={props.onCardClick} onCardLike={handleCardLike} onCardDelete={handleCardDelete} />
+              return <Card key={card._id} card={card} onClick={props.onCardClick} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete} />
             })
           })
         </div>
