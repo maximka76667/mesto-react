@@ -66,22 +66,40 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  like(card) {
-    return fetch(`${this._baseUrl}/cards/likes/${card._id}`, {
-      method: 'PUT',
-      headers: {
-        authorization: this._token,
-      },
-    }).then(this._checkResponse);
-  }
+  // like(cardId) {
+  //   return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+  //     method: 'PUT',
+  //     headers: {
+  //       authorization: this._token,
+  //     },
+  //   }).then(this._checkResponse);
+  // }
 
-  dislike(card) {
-    return fetch(`${this._baseUrl}/cards/likes/${card._id}`, {
-      method: 'DELETE',
-      headers: {
-        authorization: this._token,
-      },
-    }).then(this._checkResponse);
+  // dislike(card) {
+  //   return fetch(`${this._baseUrl}/cards/likes/${card._id}`, {
+  //     method: 'DELETE',
+  //     headers: {
+  //       authorization: this._token,
+  //     },
+  //   }).then(this._checkResponse);
+  // }
+
+  changeLikeCardStatus(cardId, isLiked) {
+    if(!isLiked) {
+      return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+        method: 'DELETE',
+        headers: {
+          authorization: this._token,
+        },
+      }).then(this._checkResponse);
+    } else {
+      return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+        method: 'PUT',
+        headers: {
+          authorization: this._token,
+        },
+      }).then(this._checkResponse);
+    }
   }
 
   changeAvatar(avatarLink) {

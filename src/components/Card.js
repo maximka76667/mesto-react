@@ -1,17 +1,39 @@
+import React from 'react'
+import CurrentUserContext from '../contexts/CurrentUserContext'
+
 export default function Card(props) {
+
+  const card = props.card;
+
+  const currentUser = React.useContext(CurrentUserContext);
+
+  const isOwner = card.owner._id === currentUser._id;
+  const cardDeleteButtonClassName = (
+    `card__delete-button ${isOwner ? 'card__delete-button_visible' : 'card__delete-button_hidden'}`
+  ); 
+
+  const isLiked = card.likes.some(i => i._id === currentUser._id);
+  const cardLikeButtonClassName = (
+    `card__like-button ${isLiked ? 'card__like-button_active' : 'card__like-button_disabled'}`
+  );
+
   function handleClick() {
-    props.onClick(props.card)
+    props.onClick(card)
+  }
+
+  function handleCardLike() {
+    props.onCardLike(card);
   }
 
   return (
     <article className="card">
-      <img src={props.card.link} alt={props.card.name} className="card__image" onClick={handleClick} />
-      <button className="card__delete-button"></button>
+      <img src={card.link} alt={card.name} className="card__image" onClick={handleClick} />
+      <button className={cardDeleteButtonClassName}></button>
       <div className="card__info">
-        <h2 className="card__title">{props.card.name}</h2>
+        <h2 className="card__title">{card.name}</h2>
         <div className="card__like">
-          <button className="card__like-button" type="button"></button>
-          <p className="card__likes-count">{props.card.likes.length}</p>
+          <button className={cardLikeButtonClassName} type="button" onClick={handleCardLike} ></button>
+          <p className="card__likes-count">{card.likes.length}</p>
         </div>
       </div>
     </article>
