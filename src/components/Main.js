@@ -4,8 +4,9 @@ import CurrentUserContext from '../contexts/CurrentUserContext'
 
 export default function Main(props) {
 
-  const currentUser = React.useContext(CurrentUserContext);
   const cards = props.cards;
+
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <main className="content">
