@@ -2,7 +2,7 @@ import React from 'react'
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import PopupWithForm from './PopupWithForm'
 
-export default function EditProfilePopup(props) {
+export default function EditProfilePopup({ isOpen, isLoading, onClose, onUpdateUser }) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -20,21 +20,19 @@ export default function EditProfilePopup(props) {
   function handleSubmit(e) {
     e.preventDefault();
     
-    props.onUpdateUser({
+    onUpdateUser({
       name,
       about: description,
     });
-
-    props.onClose();
   }
 
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]); 
+  }, [isOpen, currentUser]);
 
   return (
-    <PopupWithForm name="edit" title="Редактировать профиль" submitText="Сохранить" isOpen={props.isOpen} isLoading={props.isLoading} onClose={props.onClose} onSubmit={handleSubmit} >
+    <PopupWithForm name="edit" title="Редактировать профиль" submitText="Сохранить" isOpen={isOpen} isLoading={isLoading} onClose={onClose} onSubmit={handleSubmit} >
       <input
         className="popup__input popup__input_type_name"
         type="text"

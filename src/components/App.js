@@ -39,7 +39,7 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
     
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     })
     .catch((err) => console.log(err))
@@ -47,7 +47,9 @@ function App() {
 
   function handleCardDelete(card) {
     api.removeCard(card._id).then(() => {
-      setCards(cards.filter((newCard) => newCard._id !== card._id))
+      setCards((cardList) => {
+        return cardList.filter((newCard) => newCard._id !== card._id)
+      })
     })
     .catch((err) => console.log(err))
   }
@@ -79,18 +81,24 @@ function App() {
     setIsEditProfilePopupLoading(true);
     api.setProfileInfo(data).then((res) => {
       setCurrentUser(res);
-      setIsEditProfilePopupLoading(false);
+      closeAllPopups();
     })
     .catch((err) => console.log(err))
+    .finally(() => {
+      setIsEditProfilePopupLoading(false);
+    })
   }
 
   function handleUpdateAvatar({avatar}) {
     setIsEditAvatarPopupLoading(true);
     api.changeAvatar(avatar).then((res) => {
       setCurrentUser(res);
-      setIsEditAvatarPopupLoading(false);
+      closeAllPopups();
     })
     .catch((err) => console.log(err))
+    .finally(() => {
+      setIsEditAvatarPopupLoading(false);
+    })
   }
 
   function handleAddPlace(data) {
@@ -100,9 +108,12 @@ function App() {
       link: data.link
     }).then((newCard) => {
       setCards([newCard, ...cards]);
-      setIsAddPlacePopupLoading(false);
+      closeAllPopups();
     })
     .catch((err) => console.log(err))
+    .finally(() => {
+      setIsAddPlacePopupLoading(false);
+    })
   }
 
   React.useEffect(() => {
