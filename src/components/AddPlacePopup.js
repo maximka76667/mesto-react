@@ -29,7 +29,7 @@ export default function AddPlacePopup({ isOpen, isLoading, onClose, onAddPlace }
   }, [isOpen])
 
   return (
-    <PopupWithForm name="add" title="Новое место" isOpen={isOpen} isLoading={isLoading} onClose={onClose} onSubmit={handleAddPlaceSubmit} submitText="Создать">
+    <PopupWithForm name="add" title="Новое место" isOpen={isOpen} isLoading={isLoading} isSubmitValid={true} onClose={onClose} onSubmit={handleAddPlaceSubmit} submitText="Создать">
       <input
         className="popup__input popup__input_type_name"
         type="text"
