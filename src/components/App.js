@@ -95,7 +95,9 @@ function App() {
       setCurrentUser(res);
       closeAllPopups();
     })
-    .catch((err) => console.log(err))
+    .catch((err) => {
+      console.log(err)
+    })
     .finally(() => {
       setIsEditAvatarPopupLoading(false);
     })
