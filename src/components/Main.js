@@ -33,7 +33,7 @@ export default function Main(props) {
             cards.map((card) => {
               return <Card key={card._id} card={card} onClick={props.onCardClick} onCardLike={props.onCardLike} onCardDelete={props.onCardDelete} />
             })
-          })
+          }
         </div>
       </div>
     </main>
