@@ -132,6 +132,12 @@ function App() {
     })
   }
 
+  function handleKeyDown(e) {
+    if(e.keyCode === 27) {
+      closeAllPopups();
+    }
+  }
+
   React.useEffect(() => {
     api.getProfileInfo()
     .then((data) => {
@@ -142,7 +148,7 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
+      <div className="page" tabIndex="0" onKeyDown={isRemovePopupOpen || isEditAvatarPopupOpen || isEditProfilePopupOpen || isImagePopupOpen || isAddPlacePopupOpen ? handleKeyDown : null }>
         <div className="page__content">
           <Header />
           <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} cards={cards} onCardLike={handleCardLike} onCardDelete={handleRemovePopupClick} />
