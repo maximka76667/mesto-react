@@ -8,7 +8,7 @@ export default function EditAvatarPopup({ isOpen, isLoading, onClose, onUpdateAv
 
   const [avatar, setAvatar] = React.useState('');
 
-  // Validation
+  // Validation Constants
   const [error, setError] = React.useState('');
   const [isError, setIsError] = React.useState(false);
   const [isSubmitValid, setIsSubmitValid] = React.useState(false);

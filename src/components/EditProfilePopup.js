@@ -9,7 +9,7 @@ export default function EditProfilePopup({ isOpen, isLoading, onClose, onUpdateU
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
 
-  // Validation
+  // Validation Constants
   const [nameError, setNameError] = React.useState('');
   const [descriptionError, setDescriptionError] = React.useState('');
   const [isNameError, setIsNameError] = React.useState(false);
