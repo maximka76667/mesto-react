@@ -5,9 +5,6 @@ export default function Card({ card, onClick, onCardLike, onCardDelete,  }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const isOwner = card.owner._id === currentUser._id;
-  const cardDeleteButtonClassName = (
-    `card__delete-button ${isOwner ? 'card__delete-button_visible' : 'card__delete-button_hidden'}`
-  ); 
 
   const isLiked = card.likes.some(i => i._id === currentUser._id);
   const cardLikeButtonClassName = (
@@ -29,7 +26,7 @@ export default function Card({ card, onClick, onCardLike, onCardDelete,  }) {
   return (
     <article className="card">
       <img src={card.link} alt={card.name} className="card__image" onClick={handleClick} />
-      <button className={cardDeleteButtonClassName} onClick={handleCardDelete}></button>
+      { isOwner ? <button className='card__delete-button' onClick={handleCardDelete}></button> : null}
       <div className="card__info">
         <h2 className="card__title">{card.name}</h2>
         <div className="card__like">
