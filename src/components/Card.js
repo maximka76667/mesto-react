@@ -1,7 +1,7 @@
 import React from 'react'
 import CurrentUserContext from '../contexts/CurrentUserContext'
 
-export default function Card({ card, onClick, onCardLike, onCardDelete }) {
+export default function Card({ card, onClick, onCardLike, onCardDelete,  }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   const isOwner = card.owner._id === currentUser._id;
