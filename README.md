@@ -12,7 +12,7 @@
 - Просмотр увеличенных фотографий
 
 ## Технологии
-Сайт написан на React.
+Сайт написан на [React](https://github.com/facebook/create-react-app).
 
 ## Ссылки
 
